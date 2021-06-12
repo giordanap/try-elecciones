@@ -4,16 +4,20 @@
       <thead>
         <tr>
           <th scope="col">Candidato</th>
-          <th scope="col">Cantidad de Votos (al {{compute * 100}}%)</th>
+          <th scope="col">Cantidad de Votos (al {{ toPercentageFormat(compute) }})</th>
           <th scope="col">% Votos</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="candidate in candidates" :key="candidate.name">
-            <th scope="row">{{ candidate.name }}</th>
-            <!-- <td>{{ candidate.numberOfVotes.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") }}</td> -->
-            <td>{{ toCommaFormat(candidate.numberOfVotes) }}</td>
-            <td>{{ toPercentageFormat(candidate.numberOfVotes / totalVotes) }}</td>
+            <th class="xpy-3" scope="row">{{ candidate.name }}</th>
+            <td class="xpy-3">{{ toCommaFormat(candidate.numberOfVotes) }}</td>
+            <td class="xpy-3">{{ toPercentageFormat(candidate.numberOfVotes / totalVotes) }}  </td>
+            <td>
+              <button class="btn btn-outline-info">Editar</button>
+              <button class="btn btn-outline-danger ml-2">Eliminar</button>
+            </td>
         </tr>
       </tbody>
     </table>
@@ -48,10 +52,10 @@ export default {
     }
   },
   methods: {
-    toCommaFormat(num) {
+    toCommaFormat(num) { /// 123,456,789
       return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
-    toPercentageFormat(num) {
+    toPercentageFormat(num) { /// 57.890 %
       return `${ (num * 100).toFixed(3) } %`;
     }
   },
